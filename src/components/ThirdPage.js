@@ -3,7 +3,9 @@ import logo from "./logo3.png";
 import "@fontsource/amatic-sc/700.css";
 import EmailContext from "./EmailContext";
 
-const ThirdPage = ({ history }) => {
+const ThirdPage = ({ history, location }) => {
+  // <-- Add location prop here
+  const videoUrl = location.state?.videoUrl;
   const videoRef = useRef(null);
   const [showPopup, setShowPopup] = useState(false);
   const [email1, setEmail1] = useState("");
@@ -62,7 +64,8 @@ const ThirdPage = ({ history }) => {
           playsInline
           loop
         >
-          <source src="/assets/devushka1.mp4" type="video/mp4" />
+          <source src={videoUrl || "/assets/vid.mp4"} type="video/mp4" />
+          {/* ^^ Use videoUrl if available, fallback to static URL otherwise */}
           Your browser does not support the video tag.
         </video>
 
