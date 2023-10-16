@@ -11,11 +11,11 @@ function HomePage() {
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.load();
-      videoRef.current.play();  // Autoplay the video on component mount
+      videoRef.current.play(); // Autoplay the video on component mount
     }
     const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleVideoToggleMute = () => {
@@ -30,18 +30,15 @@ function HomePage() {
 
   const videoContainerStyles = {
     ...styles.videoContainer,
-    width: windowWidth <= 768 ? '310px' : '500px',
-    height: windowWidth <= 768 ? '310px' : '500px',
+    width: windowWidth <= 768 ? "310px" : "500px",
+    height: windowWidth <= 768 ? "310px" : "500px",
   };
 
   return (
     <div style={styles.container}>
       <img src={logo} alt="Logo" style={styles.topLogo} />
       <h1 style={styles.title}>Добро пожаловать!</h1>
-      <div
-        style={videoContainerStyles}
-        onClick={handleVideoToggleMute}
-      >
+      <div style={videoContainerStyles} onClick={handleVideoToggleMute}>
         <video
           id="videoElement"
           style={styles.video}
@@ -49,7 +46,7 @@ function HomePage() {
           muted={isMuted}
           playsInline
           autoPlay
-          loop  // Ensure the video loops
+          loop // Ensure the video loops
         >
           <source src="/assets/vid.mp4" type="video/mp4" />
           Your browser does not support the video tag.
@@ -87,10 +84,6 @@ const styles = {
     margin: "20px auto",
     cursor: "pointer",
     overflow: "hidden", // This ensures the video doesn't spill outside the container
-    '@media (max-width: 768px)': { // Mobile size
-        width: '350px',
-        height: '350px'
-    }
   },
 
   video: {
@@ -107,14 +100,14 @@ const styles = {
     border: "none",
     padding: "20px 40px", // Double the padding
     cursor: "pointer",
-    fontSize: "2em" // This will make the font size bigger if needed
-},
-topLogo: {
-  position: "absolute",
-  top: "20px",
-  left: "20px", // Added 15px margin
-  width: "50px", // or whatever size you want
-},
+    fontSize: "2em", // This will make the font size bigger if needed
+  },
+  topLogo: {
+    position: "absolute",
+    top: "20px",
+    left: "20px", // Added 15px margin
+    width: "50px", // or whatever size you want
+  },
 
   navbar: {
     position: "fixed",
