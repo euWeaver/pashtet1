@@ -1,14 +1,57 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import logo from "./logo3.png"; // Import your logo here
 import "@fontsource/amatic-sc/700.css";
 import emailjs from "emailjs-com";
 import EmailContext from "./EmailContext";
 function FourthPage() {
+  const videoToBase64 = async (url) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };
+
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { email, setEmail } = useContext(EmailContext);
+  const VideoUrl = localStorage.getItem("vidUrl");
+
+  const uploadToFS = async () => {
+    const FILESTACK_API_KEY = "AUTcgSz3RhSMUltwkJSFLz";
+    const FILESTACK_UPLOAD_URL = `https://www.filestackapi.com/api/store/S3?key=${FILESTACK_API_KEY}`;
+
+    try {
+      // Encode the data
+      const params = new URLSearchParams();
+      params.append("url", VideoUrl);
+
+      const config = {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      };
+
+      // Send the video URL to Filestack for uploading
+      const response = await axios.post(FILESTACK_UPLOAD_URL, params, config);
+
+      if (response.data && response.data.url) {
+        console.log("Uploaded Video URL:", response.data.url);
+        localStorage.setItem("newUrl", response.data.url);
+        return response.data.url;
+      } else {
+        console.error("Unexpected response from Filestack:", response.data);
+      }
+    } catch (error) {
+      console.error("Failed to upload video to Filestack:", error);
+    }
+  };
 
   useEffect(() => {
     if (videoRef.current) {
@@ -32,26 +75,45 @@ function FourthPage() {
       sendEmail(email);
     }
   }, [email]);
+  const downloadVideo = async (videoUrl) => {
+    try {
+      const response = await fetch(videoUrl);
+      const blob = await response.blob();
+      const downloadUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = downloadUrl;
+      a.download = "video.mp4";
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(downloadUrl);
+      document.body.removeChild(a);
+    } catch (e) {
+      console.error("Failed to download video:", e);
+    }
+  };
 
-  const sendEmail = (recipientEmail) => {
-    emailjs
-      .send(
+  const sendEmail = async (email) => {
+    try {
+      // First, upload the video to Filestack and wait for its completion
+      await uploadToFS();
+
+      // Then, proceed to send the email
+      const response = await emailjs.send(
         "service_j0ju1hw",
         "template_w5hhr5j",
         {
-          to_name: recipientEmail,
+          recipient_email: email,
           from_name: "Your Company Name",
-          message:
-            "https://drive.google.com/file/d/15KZsQfmPujdw_OQYK73u3itPS5yOEDhP/view?usp=sharing",
+          message: localStorage.getItem("newUrl"),
         },
         "Mp8HeJ62FCmVVWsqZ",
-      )
-      .then((response) => {
-        console.log("Email successfully sent!", response);
-      })
-      .catch((error) => {
-        console.error("Email sending failed:", error);
-      });
+      );
+
+      console.log("Email successfully sent!", response);
+    } catch (error) {
+      console.error("Error occurred:", error);
+    }
   };
 
   const handleVideoToggleMute = () => {
@@ -84,16 +146,18 @@ function FourthPage() {
           autoPlay
           loop
         >
-          <source src="/assets/devushka1.mp4" type="video/mp4" />
+          <source src={VideoUrl || "/assets/vid.mp4"} type="video/mp4" />
+          {/* ^^ Use videoUrl if available, fallback to static URL otherwise */}
           Your browser does not support the video tag.
         </video>
       </div>
       <div>
-        <a href="/assets/devushka1.mp4" download="devushka1.mp4">
-          <button style={{ ...styles.button, marginRight: "20px" }}>
-            Cкачать
-          </button>
-        </a>
+        <button
+          onClick={() => downloadVideo(VideoUrl)}
+          style={{ ...styles.button, marginRight: "20px" }}
+        >
+          Cкачать
+        </button>
         <Link to="/">
           <button style={styles.button}>Home</button>
         </Link>
@@ -124,11 +188,6 @@ const styles = {
     margin: "20px auto",
     cursor: "pointer",
     overflow: "hidden", // This ensures the video doesn't spill outside the container
-    "@media (max-width: 768px)": {
-      // Mobile size
-      width: "350px",
-      height: "350px",
-    },
   },
 
   video: {
