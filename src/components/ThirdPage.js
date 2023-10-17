@@ -11,6 +11,7 @@ const ThirdPage = ({ history, location }) => {
   const [email1, setEmail1] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { setEmail } = useContext(EmailContext);
+  const STRIPE_LINK = process.env.REACT_APP_STRIPE_LINK;
 
   useEffect(() => {
     if (videoRef.current) {
@@ -41,7 +42,7 @@ const ThirdPage = ({ history, location }) => {
     if (email1) {
       setEmail(email1);
       localStorage.setItem("userEmail", email1); // store email in localStorage
-      window.location.replace("https://buy.stripe.com/test_7sIcOi4533wOdQ4bII");
+      window.location.replace(STRIPE_LINK);
     }
   };
   const uploadBoxStyles = {
