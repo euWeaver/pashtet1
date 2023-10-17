@@ -95,25 +95,34 @@ const SecondPage = ({ history }) => {
           }
     switch (attemptCount) {
         case 0:
-            setLoadingMessage("Идет загрузка фотографии");
+            setLoadingMessage("Идет загрузка фотографии!");
             break;
         case 1:
-            setLoadingMessage("Идет загрузка фотографии");
+            setLoadingMessage("Идет загрузка фотографии!");
             break;
-        case 2:
-            setLoadingMessage("Ваше видео обрабатывается");
+         case 2:
+            setLoadingMessage("Идет загрузка фотографии!");
             break;
         case 3:
-            setLoadingMessage("Ваше видео обрабатывается");
+            setLoadingMessage("Ваше видео обрабатывается!");
             break;
         case 4:
-            setLoadingMessage("Почти готово!");
+            setLoadingMessage("Ваше видео обрабатывается!");
             break;
         case 5:
+            setLoadingMessage("Ваше видео обрабатывается!");
+            break;
+        case 6:
+            setLoadingMessage("Почти готово!");
+            break;
+        case 7:
+            setLoadingMessage("Почти готово!");
+            break;
+        case 8:
             setLoadingMessage("Почти готово!");
             break;
         default:
-            setLoadingMessage("Не покидайте страницу, мы уже у цели!");
+            setLoadingMessage("Не покидайте страницу!");
             break;
     }
           const statusResponse = await fetch(STATUS_CHECK_URL + predictionId);
@@ -133,7 +142,7 @@ const SecondPage = ({ history }) => {
               setIsLoading(false); // Stop further polling
             } else {
               attemptCount++;
-              setTimeout(checkStatus, 9000);
+              setTimeout(checkStatus, 5000);
               // Check every 15 seconds (noticed you changed this from 5s to 15s)
             }
           } else {
