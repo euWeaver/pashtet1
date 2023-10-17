@@ -47,7 +47,7 @@ const FILESTACK_UPLOAD_URL = `${FILESTACK_UPLOAD_BASE_URL}?key=${FILESTACK_API_K
       const response = await axios.post(FILESTACK_UPLOAD_URL, params, config);
 
       if (response.data && response.data.url) {
-        console.log("Uploaded Video URL:", response.data.url);
+
         localStorage.setItem("newUrl", response.data.url);
         return response.data.url;
       } else {
@@ -115,7 +115,7 @@ const FILESTACK_UPLOAD_URL = `${FILESTACK_UPLOAD_BASE_URL}?key=${FILESTACK_API_K
        EMAILJS_USER_ID,
       );
 
-      console.log("Email successfully sent!", response);
+     
     } catch (error) {
       console.error("Error occurred:", error);
     }
