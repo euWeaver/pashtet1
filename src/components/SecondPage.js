@@ -5,7 +5,7 @@ import "@fontsource/amatic-sc/700.css";
 import logo from "./logo3.png";
 import ClipLoader from "react-spinners/ClipLoader";
 const IMGUR_UPLOAD_URL = "https://api.imgur.com/3/image";
-const CLIENT_ID = "adbc20238cc7e1b"; // Replace with your client ID from Imgur
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID; 
 
 const SecondPage = ({ history }) => {
   const [image, setImage] = useState(null);
@@ -61,9 +61,8 @@ const SecondPage = ({ history }) => {
   const confirmImage = async (imgurUrl) => {
     setLoading(true);
     try {
-      const BACKEND_URL = "https://pifpaff-35fb713c3e3c.herokuapp.com/predict";
-      const STATUS_CHECK_URL =
-        "https://pifpaff-35fb713c3e3c.herokuapp.com/prediction-status/";
+      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL + "/predict";
+      const STATUS_CHECK_URL = process.env.REACT_APP_STATUS_CHECK_URL;
 
       const requestBody = {
         imageUrl: imgurUrl,
@@ -83,7 +82,7 @@ const SecondPage = ({ history }) => {
 
         // Polling server to get the video URL
         let attemptCount = 0;
-        const MAX_ATTEMPTS = 30;
+        const MAX_ATTEMPTS = parseInt(process.env.REACT_APP_MAX_ATTEMPTS);
 
         const checkStatus = async () => {
           if (attemptCount >= MAX_ATTEMPTS || !shouldContinuePolling.current) {
