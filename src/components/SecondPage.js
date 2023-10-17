@@ -98,9 +98,18 @@ const SecondPage = ({ history }) => {
             setLoadingMessage("Идет загрузка фотографии");
             break;
         case 1:
-            setLoadingMessage("Ваше видео обрабатывается");
+            setLoadingMessage("Идет загрузка фотографии");
             break;
         case 2:
+            setLoadingMessage("Ваше видео обрабатывается");
+            break;
+        case 3:
+            setLoadingMessage("Ваше видео обрабатывается");
+            break;
+        case 4:
+            setLoadingMessage("Почти готово!");
+            break;
+        case 5:
             setLoadingMessage("Почти готово!");
             break;
         default:
