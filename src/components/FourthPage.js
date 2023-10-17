@@ -6,6 +6,11 @@ import "@fontsource/amatic-sc/700.css";
 import emailjs from "emailjs-com";
 import EmailContext from "./EmailContext";
 function FourthPage() {
+
+const FILESTACK_UPLOAD_BASE_URL = process.env.REACT_APP_FILESTACK_UPLOAD_BASE_URL;
+const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+const EMAILJS_USER_ID = process.env.REACT_APP_EMAILJS_USER_ID;
   const videoToBase64 = async (url) => {
     const response = await fetch(url);
     const blob = await response.blob();
@@ -24,8 +29,8 @@ function FourthPage() {
   const VideoUrl = localStorage.getItem("vidUrl");
 
   const uploadToFS = async () => {
-    const FILESTACK_API_KEY = "AUTcgSz3RhSMUltwkJSFLz";
-    const FILESTACK_UPLOAD_URL = `https://www.filestackapi.com/api/store/S3?key=${FILESTACK_API_KEY}`;
+      const FILESTACK_API_KEY = process.env.REACT_APP_FILESTACK_API_KEY;
+const FILESTACK_UPLOAD_URL = `${FILESTACK_UPLOAD_BASE_URL}?key=${FILESTACK_API_KEY}`;
 
     try {
       // Encode the data
@@ -100,14 +105,14 @@ function FourthPage() {
 
       // Then, proceed to send the email
       const response = await emailjs.send(
-        "service_j0ju1hw",
-        "template_w5hhr5j",
+        EMAILJS_SERVICE_ID,
+    EMAILJS_TEMPLATE_ID,
         {
           recipient_email: email,
           from_name: "Your Company Name",
           message: localStorage.getItem("newUrl"),
         },
-        "Mp8HeJ62FCmVVWsqZ",
+       EMAILJS_USER_ID,
       );
 
       console.log("Email successfully sent!", response);
