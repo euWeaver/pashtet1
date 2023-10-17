@@ -110,7 +110,7 @@ const SecondPage = ({ history }) => {
               setIsLoading(false); // Stop further polling
             } else {
               attemptCount++;
-              setTimeout(checkStatus, 15000);
+              setTimeout(checkStatus, 9000);
               // Check every 15 seconds (noticed you changed this from 5s to 15s)
             }
           } else {
