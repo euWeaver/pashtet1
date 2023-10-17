@@ -12,6 +12,8 @@ const SecondPage = ({ history }) => {
   const [loading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [imgurUrl, setImgurUrl] = useState(null);
+  const [loadingMessage, setLoadingMessage] = useState("");
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -91,7 +93,20 @@ const SecondPage = ({ history }) => {
             );
             return;
           }
-
+    switch (attemptCount) {
+        case 0:
+            setLoadingMessage("Идет загрузка фотографии");
+            break;
+        case 1:
+            setLoadingMessage("Ваше видео обрабатывается");
+            break;
+        case 2:
+            setLoadingMessage("Почти готово!");
+            break;
+        default:
+            setLoadingMessage("Не покидайте страницу, мы уже у цели!");
+            break;
+    }
           const statusResponse = await fetch(STATUS_CHECK_URL + predictionId);
           if (statusResponse.ok) {
             const statusData = await statusResponse.json();
@@ -160,9 +175,10 @@ const SecondPage = ({ history }) => {
   return (
     <div style={styles.container}>
       <img src={logo} alt="Logo" style={styles.topLogo} />
-      <h2 style={styles.title}>Пожалуйста используйте качественное фото</h2>
+      <h2 style={styles.title}>
+    {loading ? loadingMessage : "Пожалуйста используйте качественное фото"}</h2>
       {loading ? (
-        <ClipLoader color={"#123abc"} loading={true} size={50} />
+        <ClipLoader color={"#402750"} loading={true} size={80} />
       ) : (
         <div style={uploadBoxStyles}>
           {image ? (
