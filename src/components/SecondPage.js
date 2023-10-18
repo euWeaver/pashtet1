@@ -196,7 +196,7 @@ const SecondPage = ({ history }) => {
       <h2 style={styles.title}>
     {loading ? loadingMessage : "Пожалуйста используйте качественное фото"}</h2>
       {loading ? (
-        <ClipLoader color={"#402750"} loading={true} size={80} />
+        <ClipLoader color={"#402750"} loading={true} size={90} />
       ) : (
         <div style={uploadBoxStyles}>
           {image ? (
