@@ -337,7 +337,7 @@ const styles = {
     color: "white",
     borderRadius: "20px",
     border: "none",
-    padding: "20px 40px", // Double the padding
+    padding: "15px 30px", // Double the padding
     cursor: "pointer",
     fontSize: "2em", // This will make the font size bigger if needed
   },
