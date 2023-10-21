@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";// hello
+import { Link } from "react-router-dom";
 import "@fontsource/amatic-sc/700.css";
 import logo from "./logo3.png";
 import ClipLoader from "react-spinners/ClipLoader";
