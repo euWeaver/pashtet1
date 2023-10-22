@@ -47,8 +47,8 @@ const ThirdPage = ({ history, location }) => {
   };
   const uploadBoxStyles = {
     ...styles.uploadBox,
-    width: windowWidth <= 768 ? "310px" : "500px",
-    height: windowWidth <= 768 ? "310px" : "500px",
+    width: windowWidth <= 768 ? "300px" : "450px",
+    height: windowWidth <= 768 ? "300px" : "450px",
   };
 
   return (
@@ -138,9 +138,8 @@ const styles = {
     marginRight: "20px", // You can adjust the size as needed
   },
   uploadBox: {
-    border: "5px solid #402750",
+    border: "8px solid #402750",
     borderRadius: "15px",
-    margin: "20px auto",
     position: "relative",
     overflow: "hidden",
   },
@@ -152,7 +151,7 @@ const styles = {
   backButtonContainer: {
     display: "flex",
     justifyContent: "center",
-    marginTop: "20px",
+    marginTop: "12px",
   },
   button: {
     backgroundColor: "#4bb150",
@@ -161,7 +160,7 @@ const styles = {
     color: "white",
     borderRadius: "20px",
     border: "none",
-    padding: "20px 40px", // Double the padding
+    padding: "15px 30px", // Double the padding
     cursor: "pointer",
     fontSize: "2em", // This will make the font size bigger if needed
   },
@@ -174,8 +173,8 @@ const styles = {
     padding: "20px",
     borderRadius: "10px",
     zIndex: 10,
-    height: "300px",
-    width: "300px",
+    height: "295px",
+    width: "295px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -225,6 +224,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     padding: "10px 20px",
+    height:"15px",
   },
   bottomLogo: {
     marginLeft: "20px", // Added 15px margin
