@@ -4,15 +4,26 @@ import { Link } from "react-router-dom";
 import "@fontsource/amatic-sc/700.css";
 import logo from "./logo3.png";
 import ClipLoader from "react-spinners/ClipLoader";
+import Webcam from "react-webcam";
 const IMGUR_UPLOAD_URL = "https://api.imgur.com/3/image";
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID; 
+const FILESTACK_API_KEY = process.env.REACT_APP_FILESTACK_API_KEY;
+const FILESTACK_UPLOAD_URL = `https://www.filestackapi.com/api/store/S3?key=${FILESTACK_API_KEY}`;
 
 const SecondPage = ({ history }) => {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [imgurUrl, setImgurUrl] = useState(null);
-  const [loadingMessage, setLoadingMessage] = useState("");
+ const [loadingMessage, setLoadingMessage] = useState("");
+  const [cameraMode, setCameraMode] = useState(false);
+  const webcamRef = React.useRef(null);
+  
+    const handleCapture = () => {
+    const screenshot = webcamRef.current.getScreenshot();
+    setImage(screenshot);
+    setCameraMode(false);
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -26,7 +37,7 @@ const SecondPage = ({ history }) => {
       reader.readAsDataURL(file);
     }
   };
-  const uploadToImgur = async (dataUrl) => {
+  const uploadToFilestack = async (dataUrl) => {
     if (typeof dataUrl !== "string") {
       console.error(
         "Expected dataUrl to be a string, received:",
@@ -35,27 +46,40 @@ const SecondPage = ({ history }) => {
       alert("There was an issue with the image. Please try again.");
       return null;
     }
+
     const base64data = dataUrl.split(",")[1]; // Strip off the DataURL prefix
-    const formData = new FormData();
-    formData.append("image", base64data);
+    const blob = new Blob(
+      [
+        new Uint8Array(
+          atob(base64data)
+            .split("")
+            .map((char) => char.charCodeAt(0)),
+        ),
+      ],
+      { type: "image/png" },
+    );
 
     try {
-      const response = await axios.post(IMGUR_UPLOAD_URL, formData, {
+      const response = await axios.post(FILESTACK_UPLOAD_URL, blob, {
         headers: {
-          Authorization: `Client-ID ${CLIENT_ID}`,
+          "Content-Type": "image/png",
+        },
+        params: {
+          key: FILESTACK_API_KEY,
         },
       });
 
-      setImgurUrl(response.data.data.link);
-
-      return response.data.data.link; // Returns the direct link to the uploaded image
+      // Assuming the direct link to the uploaded image is in the `url` property
+      // of the response object (you might need to adjust this based on the
+      // actual response from Filestack)
+      setImgurUrl(response.data.url);
+      return response.data.url;
     } catch (error) {
       console.error("Failed to upload image:", error);
-      alert("Failed to upload image to Imgur. Please try again.");
+      alert("Failed to upload image. Please try again.");
       return null;
     }
   };
-
   const handleRetake = () => {
     setImage(null);
   };
@@ -166,7 +190,7 @@ const SecondPage = ({ history }) => {
   async function handleUploadAndConfirm(imageToUpload) {
     setLoading(true);
     try {
-      const uploadedImgurUrl = await uploadToImgur(imageToUpload);
+      const uploadedImgurUrl = await uploadToFilestack(imageToUpload);
 
       if (!uploadedImgurUrl) {
         console.error("Failed to fetch imgurUrl or it's null/undefined");
@@ -184,17 +208,19 @@ const SecondPage = ({ history }) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+   const webcamSize = windowWidth <= 768 ? 310 : 500;
   const uploadBoxStyles = {
     ...styles.uploadBox,
     width: windowWidth <= 768 ? "310px" : "500px",
     height: windowWidth <= 768 ? "310px" : "500px",
   };
 
-  return (
+   return (
     <div style={styles.container}>
       <img src={logo} alt="Logo" style={styles.topLogo} />
       <h2 style={styles.title}>
-    {loading ? loadingMessage : "Пожалуйста используйте качественное фото"}</h2>
+        {loading ? loadingMessage : "Пожалуйста используйте качественное фото"}
+      </h2>
       {loading ? (
         <ClipLoader color={"#402750"} loading={true} size={90} />
       ) : (
@@ -202,7 +228,27 @@ const SecondPage = ({ history }) => {
           {image ? (
             <img
               src={image}
+              alt="Captured Preview"
+              style={styles.uploadedImage}
+            />
+          ) : image ? (
+            <img
+              src={image}
               alt="Uploaded Preview"
+              style={styles.uploadedImage}
+            />
+          ) : cameraMode ? (
+            <Webcam
+              audio={false}
+              height={webcamSize}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              width={webcamSize}
+              videoConstraints={{
+                width: webcamSize,
+                height: webcamSize,
+                facingMode: "user",
+              }}
               style={styles.uploadedImage}
             />
           ) : (
@@ -215,26 +261,27 @@ const SecondPage = ({ history }) => {
                 style={styles.hiddenInput}
               />
 
-              <label htmlFor="fileInput" style={{ ...styles.uploadLabel }}>
+              <label htmlFor="fileInput" style={styles.uploadLabel}>
                 Загрузить
               </label>
-              <div style={{ margin: "50px 0" }}></div>
-              <input
-                type="file"
-                id="cameraInput"
-                accept="image/*"
-                capture="user"
-                onChange={handleImageChange}
-                style={styles.hiddenInput}
-              />
-              <label htmlFor="cameraInput" style={styles.uploadLabel}>
+              <button
+                onClick={() => setCameraMode(true)}
+                style={styles.uploadLabel}
+              >
                 Сделать фото
-              </label>
+              </button>
             </div>
           )}
         </div>
       )}
-      {image && (
+      {cameraMode && (
+        <div style={styles.buttonGroup}>
+          <button onClick={handleCapture} style={styles.button}>
+            Сделать фото
+          </button>
+        </div>
+      )}
+      {(image) && (
         <div style={styles.buttonGroup}>
           <button
             onClick={() => handleUploadAndConfirm(image)}
@@ -304,6 +351,9 @@ const styles = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
+    display: "flex",
+    flexDirection: "column", // This will stack the buttons vertically
+    alignItems: "center", // Center align the buttons
   },
   hiddenInput: {
     display: "none",
@@ -318,6 +368,7 @@ const styles = {
     padding: "20px 40px",
     margin: "5px",
     marginTop: "20px",
+    fontSize: "1.5em",
   },
   buttonGroup: {
     display: "flex",
