@@ -287,6 +287,7 @@ const SecondPage = ({ history }) => {
             onClick={() => handleUploadAndConfirm(image)}
             style={styles.button}
             disabled={loading}
+              hidden={loading}
           >
             Подтвердить
           </button>
@@ -295,6 +296,7 @@ const SecondPage = ({ history }) => {
             onClick={handleRetake}
             style={styles.button}
             disabled={loading}
+              hidden={loading}
           >
             Переснять
           </button>
@@ -305,12 +307,16 @@ const SecondPage = ({ history }) => {
           onClick={() => history.push("/")}
           style={styles.button}
           disabled={loading}
+            hidden={loading}
         >
           Назад
         </button>
       </div>
       <div style={styles.navbar}>
         <img src={logo} alt="Logo" style={styles.bottomLogo} />
+        <a href="mailto:pifpaf.pifpaf.eu@gmail.com" style={styles.mailLink}>
+          pifpaf.pifpaf.eu@gmail.com
+        </a>
       </div>
     </div>
   );
@@ -327,6 +333,17 @@ const styles = {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+  },
+    mailLink: {
+    color: "#402750", // Or any desired color
+    textDecoration: "none",
+    display: "flex",
+    alignItems: "center",
+    marginLeft: "40px", // Margin as specified
+    fontFamily: '"Amatic SC", Helvetica',
+    fontWeight: 700,
+    fontSize: "1.2em",
+    marginRight: "20px", // You can adjust the size as needed
   },
   title: {
     textAlign: "center",
