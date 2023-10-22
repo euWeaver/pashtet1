@@ -30,8 +30,8 @@ function HomePage() {
 
   const videoContainerStyles = {
     ...styles.videoContainer,
-    width: windowWidth <= 768 ? "310px" : "500px",
-    height: windowWidth <= 768 ? "310px" : "500px",
+    width: windowWidth <= 768 ? "300px" : "450px",
+    height: windowWidth <= 768 ? "300px" : "450px",
   };
 
   return (
@@ -91,11 +91,11 @@ const styles = {
     textAlign: "center",
   },
   videoContainer: {
-    border: "5px solid #402750",
+    border: "8px solid #402750",
     borderRadius: "15px",
-    width: "500px", // Desktop size
-    height: "500px", // Desktop size
-    margin: "20px auto",
+    width: "450px", // Desktop size
+    height: "450px", // Desktop size
+    
     cursor: "pointer",
     overflow: "hidden", // This ensures the video doesn't spill outside the container
   },
@@ -112,9 +112,10 @@ const styles = {
     color: "white",
     borderRadius: "20px",
     border: "none",
-    padding: "20px 40px", // Double the padding
+    padding: "15px 30px", // Double the padding
     cursor: "pointer",
-    fontSize: "2em", // This will make the font size bigger if needed
+    fontSize: "2em",
+    marginTop: "12px",// This will make the font size bigger if needed
   },
   topLogo: {
     position: "absolute",
@@ -131,6 +132,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     padding: "10px 20px",
+    height:"15px",
   },
   bottomLogo: {
     marginLeft: "20px", // Added 15px margin
