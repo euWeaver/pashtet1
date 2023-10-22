@@ -208,11 +208,11 @@ const SecondPage = ({ history }) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-   const webcamSize = windowWidth <= 768 ? 310 : 500;
+   const webcamSize = windowWidth <= 768 ? 300 : 450;
   const uploadBoxStyles = {
     ...styles.uploadBox,
-    width: windowWidth <= 768 ? "310px" : "500px",
-    height: windowWidth <= 768 ? "310px" : "500px",
+    width: windowWidth <= 768 ? "300px" : "450px",
+    height: windowWidth <= 768 ? "300px" : "450px",
   };
 
    return (
@@ -350,11 +350,11 @@ const styles = {
     marginBottom: "20px",
   },
   uploadBox: {
-    border: "5px solid #402750",
+    border: "8px solid #402750",
     borderRadius: "15px",
-    width: "500px", // Desktop size
-    height: "500px", // Desktop size
-    margin: "20px auto",
+    width: "450px", // Desktop size
+    height: "450px", // Desktop size
+   
     cursor: "pointer",
     overflow: "hidden", // This ensures the video doesn't spill outside the container
   },
@@ -382,7 +382,7 @@ const styles = {
     fontWeight: 700,
     color: "white",
     borderRadius: "20px",
-    padding: "20px 40px",
+    padding: "15px 30px",
     margin: "5px",
     marginTop: "20px",
     fontSize: "1.5em",
@@ -391,12 +391,12 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     gap: "20px",
-    marginTop: "20px",
+    marginTop: "12px",
   },
   backButtonContainer: {
     display: "flex",
     justifyContent: "center",
-    marginTop: "20px",
+    marginTop: "12px",
   },
   button: {
     backgroundColor: "#4bb150",
@@ -424,6 +424,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     padding: "10px 20px",
+    height:"15px",
   },
   bottomLogo: {
     marginLeft: "20px", // Added 15px margin
