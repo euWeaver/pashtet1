@@ -102,6 +102,9 @@ const ThirdPage = ({ history, location }) => {
 
       <div style={styles.navbar}>
         <img src={logo} alt="Logo" style={styles.bottomLogo} />
+        <a href="mailto:pifpaf.pifpaf.eu@gmail.com" style={styles.mailLink}>
+          pifpaf.pifpaf.eu@gmail.com
+        </a>
       </div>
     </div>
   );
@@ -122,6 +125,17 @@ const styles = {
   title: {
     textAlign: "center",
     marginBottom: "20px",
+  },
+    mailLink: {
+    color: "#402750", // Or any desired color
+    textDecoration: "none",
+    display: "flex",
+    alignItems: "center",
+    marginLeft: "40px", // Margin as specified
+    fontFamily: '"Amatic SC", Helvetica',
+    fontWeight: 700,
+    fontSize: "1.2em",
+    marginRight: "20px", // You can adjust the size as needed
   },
   uploadBox: {
     border: "5px solid #402750",
