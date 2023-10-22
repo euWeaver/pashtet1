@@ -136,13 +136,16 @@ const SecondPage = ({ history }) => {
         case 5:
             setLoadingMessage("Ваше видео обрабатывается!");
             break;
-        case 6:
-            setLoadingMessage("Почти готово!");
+          case 6:
+            setLoadingMessage("Ваше видео обрабатывается!");
             break;
         case 7:
             setLoadingMessage("Почти готово!");
             break;
         case 8:
+            setLoadingMessage("Почти готово!");
+            break;
+        case 9:
             setLoadingMessage("Почти готово!");
             break;
         default:
@@ -224,20 +227,14 @@ const SecondPage = ({ history }) => {
       {loading ? (
         <ClipLoader color={"#402750"} loading={true} size={90} />
       ) : (
-        <div style={uploadBoxStyles}>
+               <div style={uploadBoxStyles}>
           {image ? (
             <img
               src={image}
               alt="Captured Preview"
               style={styles.uploadedImage}
             />
-          ) : image ? (
-            <img
-              src={image}
-              alt="Uploaded Preview"
-              style={styles.uploadedImage}
-            />
-          ) : cameraMode ? (
+          ) : cameraMode && windowWidth > 768 ? (
             <Webcam
               audio={false}
               height={webcamSize}
@@ -264,12 +261,30 @@ const SecondPage = ({ history }) => {
               <label htmlFor="fileInput" style={styles.uploadLabel}>
                 Загрузить
               </label>
-              <button
-                onClick={() => setCameraMode(true)}
-                style={styles.uploadLabel}
-              >
-                Сделать фото
-              </button>
+
+              {/* Check if it's mobile (windowWidth <= 768) */}
+              {windowWidth <= 768 ? (
+                <>
+                  <input
+                    type="file"
+                    id="cameraInput"
+                    accept="image/*"
+                    capture="user"
+                    onChange={handleImageChange}
+                    style={styles.hiddenInput}
+                  />
+                  <label htmlFor="cameraInput" style={styles.uploadLabel}>
+                    Сделать фото
+                  </label>
+                </>
+              ) : (
+                <button
+                  onClick={() => setCameraMode(true)}
+                  style={styles.uploadLabel}
+                >
+                  Сделать фото
+                </button>
+              )}
             </div>
           )}
         </div>
