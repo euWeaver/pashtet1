@@ -212,9 +212,7 @@ const styles = {
   },
 
   topLogo: {
-    position: "absolute",
-    top: "20px",
-    left: "20px", // Added 15px margin
+    marginLeft: "20px", // Added 15px margin
     width: "50px", // or whatever size you want
   },
 
