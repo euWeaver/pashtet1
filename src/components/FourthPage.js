@@ -139,7 +139,9 @@ const FILESTACK_UPLOAD_URL = `${FILESTACK_UPLOAD_BASE_URL}?key=${FILESTACK_API_K
 
   return (
     <div style={styles.container}>
-      <img src={logo} alt="Logo" style={styles.topLogo} />
+      <div style={styles.navbar1}>
+        <img src={logo} alt="Logo" style={styles.topLogo} />
+      </div>
       <h1 style={styles.title}>Ваше видео!</h1>
       <div style={videoContainerStyles} onClick={handleVideoToggleMute}>
         <video
@@ -164,7 +166,7 @@ const FILESTACK_UPLOAD_URL = `${FILESTACK_UPLOAD_BASE_URL}?key=${FILESTACK_API_K
           Cкачать
         </button>
         <Link to="/">
-          <button style={styles.button}>Home</button>
+          <button style={styles.button}>Домой</button>
         </Link>
       </div>
          <div style={styles.navbar}>
@@ -239,6 +241,17 @@ const styles = {
   navbar: {
     position: "fixed",
     bottom: "0",
+    width: "100%",
+    backgroundColor: "white",
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "10px 20px",
+    height:"15px",
+  },
+  
+  navbar1: {
+    position: "fixed",
+    top: "0",
     width: "100%",
     backgroundColor: "white",
     display: "flex",
