@@ -53,7 +53,9 @@ const ThirdPage = ({ history, location }) => {
 
   return (
     <div style={styles.container}>
+        <div style={styles.navbar1}>
       <img src={logo} alt="Logo" style={styles.topLogo} />
+      </div>
       <h1 style={styles.title}>Мы уже у цели!</h1>
       <div style={uploadBoxStyles}>
         <video
@@ -219,6 +221,16 @@ const styles = {
   navbar: {
     position: "fixed",
     bottom: "0",
+    width: "100%",
+    backgroundColor: "white",
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "10px 20px",
+    height:"15px",
+  },
+    navbar1: {
+    position: "fixed",
+    top: "0",
     width: "100%",
     backgroundColor: "white",
     display: "flex",
