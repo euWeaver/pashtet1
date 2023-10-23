@@ -220,7 +220,9 @@ const SecondPage = ({ history }) => {
 
    return (
     <div style={styles.container}>
+        <div style={styles.navbar1}>
       <img src={logo} alt="Logo" style={styles.topLogo} />
+      </div>
       <h2 style={styles.title}>
         {loading ? loadingMessage : "Пожалуйста используйте качественное фото"}
       </h2>
@@ -434,6 +436,16 @@ const styles = {
   navbar: {
     position: "fixed",
     bottom: "0",
+    width: "100%",
+    backgroundColor: "white",
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "10px 20px",
+    height:"15px",
+  },
+    navbar1: {
+    position: "fixed",
+    top: "0",
     width: "100%",
     backgroundColor: "white",
     display: "flex",
