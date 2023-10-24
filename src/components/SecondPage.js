@@ -18,7 +18,7 @@ const SecondPage = ({ history }) => {
  const [loadingMessage, setLoadingMessage] = useState("");
   const [cameraMode, setCameraMode] = useState(false);
   const webcamRef = React.useRef(null);
-  
+    const [hasWebcam, setHasWebcam] = useState(true);
     const handleCapture = () => {
     const screenshot = webcamRef.current.getScreenshot();
     setImage(screenshot);
@@ -37,6 +37,19 @@ const SecondPage = ({ history }) => {
       reader.readAsDataURL(file);
     }
   };
+
+    useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => {
+        stream.getTracks().forEach((track) => track.stop());
+        setHasWebcam(true);
+      })
+      .catch((error) => {
+        console.log("No webcam detected:", error);
+        setHasWebcam(false);
+      });
+  }, []);
   const uploadToFilestack = async (dataUrl) => {
     if (typeof dataUrl !== "string") {
       console.error(
@@ -279,13 +292,17 @@ const SecondPage = ({ history }) => {
                     Сделать фото
                   </label>
                 </>
-              ) : (
+              ) : hasWebcam ? (
                 <button
                   onClick={() => setCameraMode(true)}
                   style={styles.uploadLabel}
                 >
                   Сделать фото
                 </button>
+              ) : (
+                <label htmlFor="fileInput" style={styles.uploadLabel}>
+                  Сделать фото
+                </label>
               )}
             </div>
           )}
