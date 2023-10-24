@@ -13,7 +13,17 @@ const ThirdPage = ({ history, location }) => {
   const { setEmail } = useContext(EmailContext);
   const STRIPE_LINK = process.env.REACT_APP_STRIPE_LINK;
 
+
   useEffect(() => {
+    // Check if videoUrl exists
+    if (!videoUrl) {
+      alert(
+        "Лицо на фотографии не обнаружено, пожалуйста используйте качественное фото!",
+      );
+      history.push("/second");
+      return;
+    }
+
     if (videoRef.current) {
       videoRef.current.load();
       videoRef.current.addEventListener("timeupdate", handleTimeUpdate);
@@ -28,8 +38,7 @@ const ThirdPage = ({ history, location }) => {
         videoRef.current.removeEventListener("timeupdate", handleTimeUpdate);
       }
     };
-  }, []);
-
+  }, [videoUrl, history]);
   const handleTimeUpdate = () => {
     if (videoRef.current.currentTime >= 3 && !showPopup) {
       videoRef.current.currentTime = 0;
