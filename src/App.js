@@ -9,7 +9,7 @@ import ReactGA from "react-ga";
 function App() {
   const [email, setEmail] = useState("");
   const trackingId = "G-YSFDG6Q19W"; // Replace with your Google Analytics tracking ID
-  ReactGA.initialize(trackingId, { debug: true });
+  ReactGA.initialize(trackingId);
   return (
     <div className="App">
       <Switch>
