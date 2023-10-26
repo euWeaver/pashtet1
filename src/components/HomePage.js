@@ -2,12 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "./logo3.png"; // Import your logo here
 import "@fontsource/amatic-sc/700.css";
-
+import ReactGA from "react-ga";
 function HomePage() {
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
+  ReactGA.pageview(window.location.pathname + window.location.search);
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.load();
