@@ -5,7 +5,7 @@ import "@fontsource/amatic-sc/700.css";
 import ReactGA from "react-ga4";
 ReactGA.send({
   hitType: "pageview",
-  page: window.location.pathname,
+  page: "/", title: "Home" }
 });
 function HomePage() {
   const [isMuted, setIsMuted] = useState(true);
