@@ -12,7 +12,7 @@ const FILESTACK_UPLOAD_URL = `https://www.filestackapi.com/api/store/S3?key=${FI
 import ReactGA from "react-ga4";
 ReactGA.send({
   hitType: "pageview",
-  page: "/second", title: "Second" }
+  page: "/second", title: "Second" 
 });
 const SecondPage = ({ history }) => {
   const [image, setImage] = useState(null);
