@@ -5,7 +5,11 @@ import logo from "./logo3.png"; // Import your logo here
 import "@fontsource/amatic-sc/700.css";
 import emailjs from "emailjs-com";
 import EmailContext from "./EmailContext";
-
+import ReactGA from "react-ga4";
+ReactGA.send({
+  hitType: "pageview",
+  page: "/fourth", title: "Fourth" 
+});
 function FourthPage() {
 
 const FILESTACK_UPLOAD_BASE_URL = process.env.REACT_APP_FILESTACK_UPLOAD_BASE_URL;
