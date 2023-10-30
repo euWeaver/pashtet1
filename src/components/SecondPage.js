@@ -9,7 +9,11 @@ const IMGUR_UPLOAD_URL = "https://api.imgur.com/3/image";
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID; 
 const FILESTACK_API_KEY = process.env.REACT_APP_FILESTACK_API_KEY;
 const FILESTACK_UPLOAD_URL = `https://www.filestackapi.com/api/store/S3?key=${FILESTACK_API_KEY}`;
-
+import ReactGA from "react-ga4";
+ReactGA.send({
+  hitType: "pageview",
+  page: "/second", title: "Second" }
+});
 const SecondPage = ({ history }) => {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
