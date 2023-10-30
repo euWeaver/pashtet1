@@ -2,10 +2,9 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import logo from "./logo3.png";
 import "@fontsource/amatic-sc/700.css";
 import EmailContext from "./EmailContext";
-import ReactGA from "react-ga";
 const ThirdPage = ({ history, location }) => {
   // <-- Add location prop here
-   ReactGA.pageview(window.location.pathname + window.location.search);
+
   const videoUrl = location.state?.videoUrl;
   const videoRef = useRef(null);
   const [showPopup, setShowPopup] = useState(false);
