@@ -2,6 +2,11 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import logo from "./logo3.png";
 import "@fontsource/amatic-sc/700.css";
 import EmailContext from "./EmailContext";
+import ReactGA from "react-ga4";
+ReactGA.send({
+  hitType: "pageview",
+  page: "/third", title: "Third" 
+});
 const ThirdPage = ({ history, location }) => {
   // <-- Add location prop here
 
