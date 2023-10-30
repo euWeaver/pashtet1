@@ -5,9 +5,9 @@ import logo from "./logo3.png"; // Import your logo here
 import "@fontsource/amatic-sc/700.css";
 import emailjs from "emailjs-com";
 import EmailContext from "./EmailContext";
-import ReactGA from "react-ga";
+
 function FourthPage() {
- ReactGA.pageview(window.location.pathname + window.location.search);
+
 const FILESTACK_UPLOAD_BASE_URL = process.env.REACT_APP_FILESTACK_UPLOAD_BASE_URL;
 const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
