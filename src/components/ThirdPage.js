@@ -90,7 +90,7 @@ const ThirdPage = ({ history, location }) => {
           <div style={styles.popup}>
             <div style={styles.priceSection}>
               <del style={styles.crossedPrice}>20 €</del>
-              <span style={styles.price}>9 €</span>
+              <span style={styles.price}>{process.env.REACT_APP_PRICE} €</span>
             </div>
             <input
               type="email"
