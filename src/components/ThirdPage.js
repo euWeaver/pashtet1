@@ -8,7 +8,7 @@ ReactGA.send({
   page: "/third", title: "Third" 
 });
 const ThirdPage = ({ history, location }) => {
-  // <-- Add location prop here
+  // <-- Add location prop here gffgf
 
   const videoUrl = location.state?.videoUrl;
   const videoRef = useRef(null);
