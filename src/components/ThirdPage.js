@@ -89,8 +89,8 @@ const ThirdPage = ({ history, location }) => {
         {showPopup && (
           <div style={styles.popup}>
             <div style={styles.priceSection}>
-              <del style={styles.crossedPrice}>20 €</del>
-              <span style={styles.price}>{process.env.REACT_APP_PRICE} €</span>
+              // <del style={styles.crossedPrice}>20 €</del>
+              // <span style={styles.price}>{process.env.REACT_APP_PRICE} €</span>
             </div>
             <input
               type="email"
